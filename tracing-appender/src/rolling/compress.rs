@@ -34,7 +34,10 @@ impl Default for Compression {
             } else if #[cfg(feature = "brotli")] {
                 Self::Brotli {
                     buffer_size: 4096,
-                    params: BrotliEncoderParams::default(),
+                    params: BrotliEncoderParams {
+                        quality: 6, // https://github.com/google/ngx_brotli?tab=readme-ov-file#brotli_comp_level
+                        ..BrotliEncoderParams::default()
+                    },
                 }
             } else {
                 Self::None
